@@ -1,21 +1,18 @@
-var txr = [];
+
 
 function processTransactions(transActions) {
 
-    txr = [];
+    const txr = [];
 
     if(!validateTransactions(transActions)) {
         throw new Error("Undefined collection of transactions")
     }
+    
+    let txCount = transActions.reduce((transaction, item) =>
+     { return transaction[item] ? ++transaction[item] : transaction[item] = 1, transaction}, {});
+        
 
-    let txCount = {}
-
-    const numberOfTransactions = transActions.length;
-
-    for(var i = 0; i < numberOfTransactions; i++) {
-        const transaction = transActions[i];
-        txCount[transaction] ? txCount[transaction] += 1 : txCount[transaction] = 1;
-    }
+    
 
     txCount = sortByAmountThenName(txCount);
     
